@@ -1,13 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
-import { ThemeMode, ThemeColors, ThemeState } from "../types";
+import { ThemeMode, ThemeColors, ThemeState, ThemeName } from "../types";
 import { injectCSSVariables, getDefaultColors } from "../core/engine";
 import { saveMode, loadMode, saveColors, loadColors } from "../core/storage";
 import { getSystemMode, watchSystemMode } from "../core/system";
+import { getTheme } from "../core/themes";
 
-export function useTheme(initial?: ThemeMode): ThemeState {
+export function useTheme(
+  initial?: ThemeMode,
+  initialTheme?: ThemeName
+): ThemeState {
   const [mode, setModeState] = useState<ThemeMode>(() => {
     return loadMode() || initial || "system";
   });
+
+  const [theme, setThemeState] = useState<ThemeName>(
+    initialTheme || "default"
+  );
 
   const [colors, setColorsState] = useState<ThemeColors>(() => {
     return loadColors() || {};
@@ -15,19 +23,22 @@ export function useTheme(initial?: ThemeMode): ThemeState {
 
   const resolvedMode = mode === "system" ? getSystemMode() : mode;
 
-  // CSS variables inject karo jab bhi mode ya colors badle
   useEffect(() => {
-    injectCSSVariables(colors, resolvedMode);
-  }, [resolvedMode, colors]);
+    const preset = getTheme(theme);
+    const presetColors = resolvedMode === "dark" ? preset.dark : preset.light;
+    injectCSSVariables({ ...presetColors, ...colors }, resolvedMode);
+  }, [resolvedMode, colors, theme]);
 
-  // System mode watch karo
   useEffect(() => {
     if (mode !== "system") return;
     const cleanup = watchSystemMode(() => {
-      injectCSSVariables(colors, getSystemMode());
+      const preset = getTheme(theme);
+      const presetColors =
+        getSystemMode() === "dark" ? preset.dark : preset.light;
+      injectCSSVariables({ ...presetColors, ...colors }, getSystemMode());
     });
     return cleanup;
-  }, [mode, colors]);
+  }, [mode, colors, theme]);
 
   const toggle = useCallback(() => {
     const next = resolvedMode === "light" ? "dark" : "light";
@@ -48,12 +59,18 @@ export function useTheme(initial?: ThemeMode): ThemeState {
     });
   }, []);
 
+  const setTheme = useCallback((newTheme: ThemeName) => {
+    setThemeState(newTheme);
+  }, []);
+
   return {
     mode,
     resolvedMode,
+    theme,
     colors: { ...getDefaultColors(resolvedMode), ...colors },
     toggle,
     setMode,
     setColors,
+    setTheme,
   };
 }

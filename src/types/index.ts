@@ -1,5 +1,7 @@
 export type ThemeMode = "light" | "dark" | "system";
 
+export type ThemeName = "default" | "ocean" | "forest" | "sunset" | "rose" | (string & {});
+
 export interface ThemeColors {
   primary?: string;
   background?: string;
@@ -19,7 +21,9 @@ export interface ThemeState {
   mode: ThemeMode;
   resolvedMode: "light" | "dark";
   colors: ThemeColors;
+  theme: ThemeName;
   toggle: () => void;
   setMode: (mode: ThemeMode) => void;
   setColors: (colors: ThemeColors) => void;
+  setTheme: (theme: ThemeName) => void;
 }

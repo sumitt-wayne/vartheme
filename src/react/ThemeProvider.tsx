@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode } from "react";
-import { ThemeState, ThemeMode, ThemeConfig } from "../types";
+import { ThemeState, ThemeMode, ThemeColors, ThemeName } from "../types";
 import { useTheme } from "./useTheme";
 import { applyTransitions } from "../core/engine";
 
@@ -7,24 +7,31 @@ const ThemeContext = createContext<ThemeState | null>(null);
 
 interface ThemeProviderProps {
   children: ReactNode;
-  config?: ThemeConfig;
+  mode?: ThemeMode;
+  theme?: ThemeName;
+  colors?: ThemeColors;
+  transitions?: boolean;
 }
 
-export function ThemeProvider({ children, config }: ThemeProviderProps) {
-  const theme = useTheme(config?.mode);
+export function ThemeProvider({
+  children,
+  mode,
+  theme = "default",
+  colors,
+  transitions,
+}: ThemeProviderProps) {
+  const themeState = useTheme(mode, theme);
 
-  // Transitions enable karo agar config mein hai
-  if (config?.transitions) {
+  if (transitions) {
     applyTransitions();
   }
 
-  // Custom colors apply karo agar config mein hain
-  if (config?.colors) {
-    theme.setColors(config.colors);
+  if (colors) {
+    themeState.setColors(colors);
   }
 
   return (
-    <ThemeContext.Provider value={theme}>
+    <ThemeContext.Provider value={themeState}>
       {children}
     </ThemeContext.Provider>
   );

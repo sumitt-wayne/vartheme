@@ -4,7 +4,6 @@ export { saveMode, loadMode, saveColors, loadColors, clearStorage } from "./core
 export { getSystemMode, watchSystemMode, isBrowser } from "./core/system";
 export { ThemeToggle } from "./react/ThemeToggle";
 export { getTheme, BUILT_IN_THEMES } from "./core/themes";
-
 // React
 export { useTheme } from "./react/useTheme";
 export { ThemeProvider, useThemeContext } from "./react/ThemeProvider";

@@ -2,6 +2,8 @@
 ### Zero-config, CSS variable based theme switching for React  
 **Dark mode in one line. Clean. Fast. Modern.**
 
+🌐 **Website:** [vartheme.vercel.app](https://vartheme.vercel.app)
+
 [![npm version](https://img.shields.io/npm/v/vartheme)](https://www.npmjs.com/package/vartheme)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/vartheme)](https://bundlephobia.com/package/vartheme)
 [![license](https://img.shields.io/npm/l/vartheme)](./LICENSE)

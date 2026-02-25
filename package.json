@@ -1,6 +1,6 @@
 {
   "name": "vartheme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zero config, CSS variable based theme switching for React",
   "author": "Your Name",
   "license": "MIT",
@@ -14,7 +14,9 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

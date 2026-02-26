@@ -249,6 +249,42 @@ If you like this project:
 
 ---
 
+## Tailwind Plugin
+
+vartheme comes with a Tailwind CSS plugin that adds CSS variables as Tailwind classes.
+
+### Setup
+```js
+// tailwind.config.js
+import { varthemePlugin } from 'vartheme/tailwind'
+
+export default {
+  plugins: [varthemePlugin],
+}
+```
+
+### Usage
+```jsx
+// Ab directly Tailwind classes use karo
+<div className="bg-vt-surface text-vt-text border border-vt-border">
+  <h1 className="text-vt-primary">Hello!</h1>
+  <button className="bg-vt-primary text-white">Click me</button>
+</div>
+```
+
+### Available Classes
+
+| Class | CSS Variable |
+|-------|-------------|
+| `bg-vt-primary` | `--vt-primary` |
+| `bg-vt-background` | `--vt-background` |
+| `bg-vt-surface` | `--vt-surface` |
+| `text-vt-text` | `--vt-text` |
+| `text-vt-primary` | `--vt-primary` |
+| `text-vt-accent` | `--vt-accent` |
+| `border-vt-border` | `--vt-border` |
+| `shadow-vt-glow` | `--vt-primary` glow |
+
 ## 📄 License  
 
 MIT © 2026 vartheme

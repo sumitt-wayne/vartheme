@@ -1,6 +1,6 @@
 {
   "name": "vartheme",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Zero config, CSS variable based theme switching for React",
   "author": "Your Name",
   "license": "MIT",
